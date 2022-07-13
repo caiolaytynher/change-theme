@@ -1,9 +1,8 @@
 import json
 import os
 import sys
-
-from pprint import pprint
-
+import re
+from typing import Pattern
 
 HOME = os.path.expanduser("~")
 PATH = f"{HOME}/Documents/python/change-colorscheme/colorschemes.json"
@@ -14,17 +13,21 @@ def read_color_data(filepath: str) -> dict[str]:
         return json.load(file)
 
 
-def change_line(filepath: str, targeted_text: str, replacement_text: str) -> None:
+def change_line(
+    filepath: str,
+    target_regex: Pattern[str],
+    replacement_text: str,
+) -> None:
     with open(filepath, "r") as file:
-        file_content = file.readlines()
+        file_string = "".join(file.readlines())
 
-    for i, line in enumerate(file_content):
-        if targeted_text in line:
-            file_content[i] = line.replace(targeted_text, replacement_text)
+    matches = target_regex.finditer(file_string)
+    for match in matches:
+        start, end = match.span()
+        file_string = file_string.replace(file_string[start:end], replacement_text)
 
     with open(filepath, "w") as file:
-        for line in file_content:
-            file.write(line)
+        file.write(file_string)
 
 
 def main(args: list[str]) -> None:
@@ -37,7 +40,11 @@ def main(args: list[str]) -> None:
     if not colorscheme:
         raise Exception("This coloscheme do not exist.")
 
-    change_line("./testfile.txt", "blue", "yellow")
+    change_line(
+        f"{HOME}/.config/qtile/color_palletes.py",
+        re.compile(r"colorscheme = data.get\(.*\)"),
+        'colorscheme = data.get("monokai")',
+    )
 
 
 if __name__ == "__main__":
