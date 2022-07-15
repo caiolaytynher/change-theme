@@ -1,1 +1,0 @@
-/home/caio/dotfiles/.config/qtile/color_schemes.py
