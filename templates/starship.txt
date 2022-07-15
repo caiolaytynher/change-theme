@@ -1,0 +1,127 @@
+format = """
+[ ](background_lighter)\
+$username\
+[](bg:background_light fg:background_lighter)\
+$directory\
+[](fg:background_light bg:background_dark)\
+$git_branch\
+$git_status\
+[](fg:background_dark bg:background_darker)\
+$python\
+$c\
+$elixir\
+$elm\
+$golang\
+$haskell\
+$java\
+$julia\
+$nodejs\
+$nim\
+$rust\
+[ ](fg:background_darker)\
+"""
+
+# Disable the blank line at the start of the prompt
+# add_newline = false
+
+# You can also replace your username with a neat symbol like  to save some space
+[username]
+show_always = true
+style_user = "bg:background_lighter"
+style_root = "bg:background_lighter"
+format = '[$user ]($style)'
+
+[directory]
+style = "bg:background_light"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+# Here is how you can shorten some long paths by text replacement
+# similar to mapped_locations in Oh My Posh:
+[directory.substitutions]
+"Documents" = ""
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+"python" = ""
+# Keep in mind that the order matters. For example:
+# "Important Documents" = "  "
+# will not be replaced, because "Documents" was already substituted before.
+# So either put "Important Documents" before "Documents" or use the substituted version:
+# "Important  " = "  "
+
+[c]
+symbol = " "
+style = "bg:background_darker"
+format = '[[ $symbol ($version) ](bg:background_darker)]($style)'
+
+[docker_context]
+symbol = " "
+style = "bg:#06969A"
+format = '[[ $symbol $context ](bg:#06969A)]($style) $path'
+
+[elixir]
+symbol = " "
+style = "bg:background_darker"
+format = '[[ $symbol ($version) ](bg:background_darker)]($style)'
+
+[elm]
+symbol = " "
+style = "bg:background_darker"
+format = '[[ $symbol ($version) ](bg:background_darker)]($style)'
+
+[git_branch]
+symbol = ""
+style = "bg:background_dark"
+format = '[[ $symbol $branch ](bg:background_dark)]($style)'
+
+[git_status]
+style = "bg:background_dark"
+format = '[[($all_status$ahead_behind )](bg:background_dark)]($style)'
+
+[golang]
+symbol = " "
+style = "bg:background_darker"
+format = '[[ $symbol ($version) ](bg:background_darker)]($style)'
+
+[haskell]
+symbol = " "
+style = "bg:background_darker"
+format = '[[ $symbol ($version) ](bg:background_darker)]($style)'
+
+[java]
+symbol = " "
+style = "bg:background_darker"
+format = '[[ $symbol ($version) ](bg:background_darker)]($style)'
+
+[julia]
+symbol = " "
+style = "bg:background_darker"
+format = '[[ $symbol ($version) ](bg:background_darker)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:background_darker"
+format = '[[ $symbol ($version) ](bg:background_darker)]($style)'
+
+[nim]
+symbol = " "
+style = "bg:background_darker"
+format = '[[ $symbol ($version) ](bg:background_darker)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:background_darker"
+format = '[[ $symbol ($version) ](bg:background_darker)]($style)'
+
+[python]
+symbol = ""
+style = "bg:background_darker"
+format = '[[ $symbol ($version) $virtualenv ](bg:background_darker)]($style)'
+
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute Format
+style = "bg:#33658A"
+format = '[[ ♥ $time ](bg:#33658A)]($style)'
