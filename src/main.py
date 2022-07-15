@@ -1,33 +1,16 @@
-import json
 import os
 import sys
 import re
-from typing import Pattern
+
+import color_schemes
+from color_scheme import ColorScheme
+from helper_functions import change_line
 
 HOME = os.path.expanduser("~")
-PATH = f"{HOME}/Documents/python/change-colorscheme/colorschemes.json"
-
-
-def read_color_data(filepath: str) -> dict[str]:
-    with open(filepath, "r") as file:
-        return json.load(file)
-
-
-def change_line(
-    filepath: str,
-    target_regex: Pattern[str],
-    replacement_text: str,
-) -> None:
-    with open(filepath, "r") as file:
-        file_string = "".join(file.readlines())
-
-    matches = target_regex.finditer(file_string)
-    for match in matches:
-        start, end = match.span()
-        file_string = file_string.replace(file_string[start:end], replacement_text)
-
-    with open(filepath, "w") as file:
-        file.write(file_string)
+VALID_COLORSCHEMES = {
+    "gruvbox": color_schemes.gruvbox,
+    "dracula": color_schemes.dracula,
+}
 
 
 def main(args: list[str]) -> None:
@@ -36,7 +19,7 @@ def main(args: list[str]) -> None:
     else:
         raise Exception("You must provide one argument.")
 
-    colorscheme: dict[str] = read_color_data(PATH).get(colorscheme_name, {})
+    colorscheme: ColorScheme = ).get(colorscheme_name, {})
     if not colorscheme:
         raise Exception("This coloscheme do not exist.")
 
@@ -91,4 +74,4 @@ def main(args: list[str]) -> None:
 
 if __name__ == "__main__":
     # main(sys.argv)
-    main(["python", "GruvboxDark"])
+    main(["python", "gruvbox"])
