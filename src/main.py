@@ -1,10 +1,9 @@
 import os
 import sys
-import re
 
 import color_schemes
 from color_scheme import ColorScheme
-from helper_functions import change_line
+from helper_functions import change_line, change_lines, change_template
 
 HOME = os.path.expanduser("~")
 VALID_COLORSCHEMES = {
@@ -27,44 +26,60 @@ def main(args: list[str]) -> None:
     # Change Qtile
     change_line(
         filepath=f"{HOME}/.config/qtile/config.py",
-        target_regex=re.compile(r"colors = color_schemes\..*"),
-        replacement_text=f"colors = color_schemes.{color_scheme_name}",
+        target=r"colors = color_schemes\..*",
+        replacement=f"colors = color_schemes.{color_scheme_name}",
     )
 
     # Change Alacritty
     change_line(
         filepath=f"{HOME}/.config/alacritty/alacritty.yml",
-        target_regex=re.compile(r"colors: \*.*"),
-        replacement_text=f"colors: *{color_scheme_name}",
+        target=r"colors: \*.*",
+        replacement=f"colors: *{color_scheme_name}",
     )
 
     # Change Neovim
     change_line(
         filepath=f"{HOME}/.config/nvim/init.vim",
-        target_regex=re.compile(r"colorscheme .*"),
-        replacement_text=f"colorscheme {color_scheme_name}",
+        target=r"colorscheme .*",
+        replacement=f"colorscheme {color_scheme_name}",
     )
     change_line(
         filepath=f"{HOME}/.config/nvim/after/plugin/lualine.rc.lua",
-        target_regex=re.compile(r"theme = '.*'"),
-        replacement_text=f"theme = '{color_scheme_name}'",
+        target=r"theme = '.*'",
+        replacement=f"theme = '{color_scheme_name}'",
     )
 
     # Change Rofi
-    change_line(
+    change_lines(
         filepath=f"{HOME}/.config/rofi/config.rasi",
-        target_regex=re.compile(r"bg: .*;"),
-        replacement_text=f"bg: {color_scheme.primary.background};",
+        targets=[
+            r"bg: .*;",
+            r"fg: .*;",
+            r"accent: .*;",
+        ],
+        replacements=[
+            f"bg: {color_scheme.primary.background};",
+            f"fg: {color_scheme.primary.foreground};",
+            f"accent: {color_scheme.normal.yellow};",
+        ],
     )
-    change_line(
-        filepath=f"{HOME}/.config/rofi/config.rasi",
-        target_regex=re.compile(r"fg: .*;"),
-        replacement_text=f"fg: {color_scheme.primary.foreground};",
-    )
-    change_line(
-        filepath=f"{HOME}/.config/rofi/config.rasi",
-        target_regex=re.compile(r"accent: .*;"),
-        replacement_text=f"accent: {color_scheme.normal.yellow};",
+
+    # Change Starship Prompt
+    change_template(
+        input_filepath=f"{HOME}/Documents/python/change-color-scheme/templates/starship.txt",
+        targets=[
+            r"background_lighter(?=[\s\)\"])",
+            r"background_light(?=[\s\)\"])",
+            r"background_dark(?=[\s\)\"])",
+            r"background_darker(?=[\s\)\"])",
+        ],
+        replacements=[
+            f"{color_scheme.primary.background_lighter}",
+            f"{color_scheme.primary.background_light}",
+            f"{color_scheme.primary.background_dark}",
+            f"{color_scheme.primary.background_darker}",
+        ],
+        output_filepath=f"{HOME}/.config/starship.toml",
     )
 
 
