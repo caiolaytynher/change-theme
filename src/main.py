@@ -15,61 +15,57 @@ VALID_COLORSCHEMES = {
 
 def main(args: list[str]) -> None:
     if len(args) > 1:
-        colorscheme_name: str = args[1]
+        color_scheme_name: str = args[1]
     else:
         raise Exception("You must provide one argument.")
 
-    colorscheme: ColorScheme = ).get(colorscheme_name, {})
-    if not colorscheme:
+    if color_scheme_name not in VALID_COLORSCHEMES:
         raise Exception("This coloscheme do not exist.")
+
+    color_scheme: ColorScheme = VALID_COLORSCHEMES[color_scheme_name]
 
     # Change Qtile
     change_line(
-        filepath=f"{HOME}/.config/qtile/color_palletes.py",
-        target_regex=re.compile(r"colorscheme = data.get\(.*\)"),
-        replacement_text=f'colorscheme = data.get("{colorscheme_name}")',
+        filepath=f"{HOME}/.config/qtile/config.py",
+        target_regex=re.compile(r"colors = color_schemes\..*"),
+        replacement_text=f"colors = color_schemes.{color_scheme_name}",
     )
 
     # Change Alacritty
     change_line(
         filepath=f"{HOME}/.config/alacritty/alacritty.yml",
         target_regex=re.compile(r"colors: \*.*"),
-        replacement_text=f"colors: *{colorscheme_name}",
+        replacement_text=f"colors: *{color_scheme_name}",
     )
 
     # Change Neovim
-    translate_name = {
-        "GarudaDracula": "dracula",
-        "GruvboxDark": "gruvbox",
-    }
     change_line(
         filepath=f"{HOME}/.config/nvim/init.vim",
         target_regex=re.compile(r"colorscheme .*"),
-        replacement_text=f"colorscheme {translate_name[colorscheme_name]}",
+        replacement_text=f"colorscheme {color_scheme_name}",
     )
     change_line(
         filepath=f"{HOME}/.config/nvim/after/plugin/lualine.rc.lua",
         target_regex=re.compile(r"theme = '.*'"),
-        replacement_text=f"theme = '{translate_name[colorscheme_name]}'",
+        replacement_text=f"theme = '{color_scheme_name}'",
     )
 
     # Change Rofi
     change_line(
         filepath=f"{HOME}/.config/rofi/config.rasi",
         target_regex=re.compile(r"bg: .*;"),
-        replacement_text=f"bg: {colorscheme['primary']['background']};",
+        replacement_text=f"bg: {color_scheme.primary.background};",
     )
     change_line(
         filepath=f"{HOME}/.config/rofi/config.rasi",
         target_regex=re.compile(r"fg: .*;"),
-        replacement_text=f"fg: {colorscheme['primary']['foreground']};",
+        replacement_text=f"fg: {color_scheme.primary.foreground};",
     )
-    for color_name, color_hex in colorscheme["normal"].items():
-        change_line(
-            filepath=f"{HOME}/.config/rofi/config.rasi",
-            target_regex=re.compile(rf"{color_name}: .*;"),
-            replacement_text=f"{color_name}: {color_hex};",
-        )
+    change_line(
+        filepath=f"{HOME}/.config/rofi/config.rasi",
+        target_regex=re.compile(r"accent: .*;"),
+        replacement_text=f"accent: {color_scheme.normal.yellow};",
+    )
 
 
 if __name__ == "__main__":
