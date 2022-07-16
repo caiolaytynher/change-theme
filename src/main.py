@@ -107,6 +107,23 @@ def main(args: list[str]) -> None:
         output_filepath=f"{HOME}/.config/starship.toml",
     )
 
+    # Change dmenu
+    change_lines(
+        filepath=f"{HOME}/.config/qtile/scripts/dmenu.sh",
+        targets=[
+            r"normal_background=.*",
+            r"normal_foreground=.*",
+            r"selected_background=.*",
+            r"selected_foreground=.*",
+        ],
+        replacements=[
+            f'normal_background="{color_scheme.primary.background}"',
+            f'normal_foreground="{color_scheme.primary.foreground}"',
+            f'selected_background="{color_scheme.normal.__dict__[COLOR_SCHEME_ACCENT_COLOR[color_scheme_name]]}"',
+            f'selected_foreground="{color_scheme.primary.foreground}"',
+        ],
+    )
+
 
 if __name__ == "__main__":
     main(sys.argv)
