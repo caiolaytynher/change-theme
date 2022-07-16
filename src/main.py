@@ -53,6 +53,7 @@ def main(args: list[str]) -> None:
         target=r"colors\.normal\..*(?=,)",
         replacement=f"colors.normal.{COLOR_SCHEME_ACCENT_COLOR[color_scheme_name]}",
     )
+    os.system("qtile cmd-obj -o cmd -f restart")
 
     # Change Alacritty
     change_line(
