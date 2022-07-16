@@ -85,7 +85,7 @@ def main(args: list[str]) -> None:
         replacements=[
             f"bg: {color_scheme.primary.background};",
             f"fg: {color_scheme.primary.foreground};",
-            f"accent: {color_scheme.normal.yellow};",
+            f"accent: {color_scheme.normal.__dict__[COLOR_SCHEME_ACCENT_COLOR[color_scheme_name]]};",
         ],
     )
 
