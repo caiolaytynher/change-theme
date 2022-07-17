@@ -79,11 +79,15 @@ def main(args: list[str]) -> None:
         filepath=f"{HOME}/.config/rofi/config.rasi",
         targets=[
             r"bg: .*;",
+            r"bg-light: .*;",
+            r"bg-lighter: .*;",
             r"fg: .*;",
             r"accent: .*;",
         ],
         replacements=[
             f"bg: {color_scheme.primary.background};",
+            f"bg-light: {color_scheme.primary.background_light};",
+            f"bg-lighter: {color_scheme.primary.background_lighter};",
             f"fg: {color_scheme.primary.foreground};",
             f"accent: {color_scheme.normal.__dict__[COLOR_SCHEME_ACCENT_COLOR[color_scheme_name]]};",
         ],
