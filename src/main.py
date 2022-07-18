@@ -128,6 +128,26 @@ def main(args: list[str]) -> None:
         ],
     )
 
+    # Change Dunst
+    change_lines(
+        filepath=f"{HOME}/.config/dunst/dunstrc",
+        targets=[
+            r"background = .* # primary background",
+            r"foreground = .* # primary foreground",
+            r"frame_color = .* # primary background light",
+            r"background = .* # normal red",
+            r"frame_color = .* # bright red",
+        ],
+        replacements=[
+            f'background = "{color_scheme.primary.background}" # primary background',
+            f'foreground = "{color_scheme.primary.foreground}" # primary foreground',
+            f'frame_color = "{color_scheme.primary.background_light}" # primary background light',
+            f'background = "{color_scheme.normal.red}" # normal red',
+            f'frame_color = "{color_scheme.bright.red}" # bright red',
+        ],
+    )
+    os.system("killall dunst")
+
 
 if __name__ == "__main__":
     main(sys.argv)
