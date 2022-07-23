@@ -1,5 +1,6 @@
 import os
 import sys
+import subprocess
 
 import color_schemes
 from color_scheme import ColorScheme
@@ -33,44 +34,53 @@ def main(args: list[str]) -> None:
     color_scheme: ColorScheme = VALID_COLOR_SCHEMES[color_scheme_name]
 
     # Change Wallpaper
-    os.system(
-        f"feh --bg-fill {WALLPAPERS_PATH}/{COLOR_SCHEME_WALLPAPER[color_scheme_name]}"
+    subprocess.Popen(
+        [
+            "/usr/bin/feh",
+            "--bg-fill",
+            f"{WALLPAPERS_PATH}/{COLOR_SCHEME_WALLPAPER[color_scheme_name]}",
+        ]
     )
     change_line(
         filepath=f"{HOME}/.config/qtile/scripts/autostart.sh",
-        target=r"feh --bg-fill\s\$HOME\/Pictures\/wallpapers\/.*",
+        target=r"feh\s--bg-fill\s\$HOME\/Pictures\/wallpapers\/.*",
         replacement=f"feh --bg-fill {WALLPAPERS_PATH}/{COLOR_SCHEME_WALLPAPER[color_scheme_name]}",
     )
 
     # Change Qtile
     change_line(
-        filepath=f"{HOME}/.config/qtile/config.py",
-        target=r"colors = color_schemes\..*",
-        replacement=f"colors = color_schemes.{color_scheme_name}",
+        filepath=f"{HOME}/.config/qtile/colors/__init__.py",
+        target=r"colors:\sColorScheme\s=\scolor_schemes\..*",
+        replacement=f"colors: ColorScheme = color_schemes.{color_scheme_name}",
     )
     change_line(
-        filepath=f"{HOME}/.config/qtile/config.py",
+        filepath=f"{HOME}/.config/qtile/components/groups.py",
         target=r"colors\.normal\..*(?=,)",
         replacement=f"colors.normal.{COLOR_SCHEME_ACCENT_COLOR[color_scheme_name]}",
     )
-    os.system("qtile cmd-obj -o cmd -f restart")
+    change_line(
+        filepath=f"{HOME}/.config/qtile/components/panel.py",
+        target=r"colors\.normal\..*(?=,)",
+        replacement=f"colors.normal.{COLOR_SCHEME_ACCENT_COLOR[color_scheme_name]}",
+    )
+    subprocess.Popen(["/usr/bin/qtile", "cmd-obj", "-o", "cmd", "-f", "restart"])
 
     # Change Alacritty
     change_line(
         filepath=f"{HOME}/.config/alacritty/alacritty.yml",
-        target=r"colors: \*.*",
+        target=r"colors:\s\*.*",
         replacement=f"colors: *{color_scheme_name}",
     )
 
     # Change Neovim
     change_line(
         filepath=f"{HOME}/.config/nvim/init.vim",
-        target=r"colorscheme .*",
+        target=r"colorscheme\s.*",
         replacement=f"colorscheme {color_scheme_name}",
     )
     change_line(
         filepath=f"{HOME}/.config/nvim/after/plugin/lualine.rc.lua",
-        target=r"theme = '.*'",
+        target=r"theme\s=\s'.*'",
         replacement=f"theme = '{color_scheme_name}'",
     )
 
@@ -78,11 +88,11 @@ def main(args: list[str]) -> None:
     change_lines(
         filepath=f"{HOME}/.config/rofi/config.rasi",
         targets=[
-            r"bg: .*;",
-            r"bg-light: .*;",
-            r"bg-lighter: .*;",
-            r"fg: .*;",
-            r"accent: .*;",
+            r"bg:\s.*;",
+            r"bg-light:\s.*;",
+            r"bg-lighter:\s.*;",
+            r"fg:\s.*;",
+            r"accent:\s.*;",
         ],
         replacements=[
             f"bg: {color_scheme.primary.background};",
@@ -113,7 +123,7 @@ def main(args: list[str]) -> None:
 
     # Change dmenu
     change_lines(
-        filepath=f"{HOME}/.config/qtile/scripts/dmenu.sh",
+        filepath=f"{HOME}/Documents/bash/custom-shell-scripts/custom-dmenu.sh",
         targets=[
             r"normal_background=.*",
             r"normal_foreground=.*",
@@ -132,11 +142,11 @@ def main(args: list[str]) -> None:
     change_lines(
         filepath=f"{HOME}/.config/dunst/dunstrc",
         targets=[
-            r"background = .* # primary background",
-            r"foreground = .* # primary foreground",
-            r"frame_color = .* # primary background light",
-            r"background = .* # normal red",
-            r"frame_color = .* # bright red",
+            r"background\s=\s.* # primary background",
+            r"foreground\s=\s.* # primary foreground",
+            r"frame_color\s=\s.* # primary background light",
+            r"background\s=\s.* # normal red",
+            r"frame_color\s=\s.* # bright red",
         ],
         replacements=[
             f'background = "{color_scheme.primary.background}" # primary background',
@@ -146,7 +156,7 @@ def main(args: list[str]) -> None:
             f'frame_color = "{color_scheme.bright.red}" # bright red',
         ],
     )
-    os.system("killall dunst")
+    subprocess.Popen(["/usr/bin/killall", "dunst"])
 
 
 if __name__ == "__main__":
