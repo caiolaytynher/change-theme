@@ -74,12 +74,12 @@ def main(args: list[str]) -> None:
 
     # Change Neovim
     change_line(
-        filepath=f"{HOME}/.config/nvim/init.vim",
-        target=r"colorscheme\s.*",
-        replacement=f"colorscheme {color_scheme_name}",
+        filepath=f"{HOME}/.config/nvim/lua/caio/colorscheme.lua",
+        target=r"local\scolorscheme\s=.*",
+        replacement=f'local colorscheme = "{color_scheme_name}"',
     )
     change_line(
-        filepath=f"{HOME}/.config/nvim/after/plugin/lualine.rc.lua",
+        filepath=f"{HOME}/.config/nvim/after/plugin/lualine.lua",
         target=r"theme\s=\s'.*'",
         replacement=f"theme = '{color_scheme_name}'",
     )
