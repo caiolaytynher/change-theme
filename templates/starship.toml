@@ -1,12 +1,12 @@
 format = """
-[ ](background_lighter)\
+[ ](contrast3)\
 $username\
-[](bg:background_light fg:background_lighter)\
+[](bg:contrast2 fg:contrast3)\
 $directory\
-[](fg:background_light bg:background_dark)\
+[](fg:contrast2 bg:contrast1)\
 $git_branch\
 $git_status\
-[](fg:background_dark bg:background_darker)\
+[](fg:contrast1 bg:contrast0)\
 $lua\
 $python\
 $c\
@@ -19,7 +19,7 @@ $julia\
 $nodejs\
 $nim\
 $rust\
-[ ](fg:background_darker)\
+[ ](fg:contrast0)\
 """
 
 # Disable the blank line at the start of the prompt
@@ -28,12 +28,12 @@ $rust\
 # You can also replace your username with a neat symbol like  to save some space
 [username]
 show_always = true
-style_user = "bg:background_lighter"
-style_root = "bg:background_lighter"
+style_user = "bg:contrast3"
+style_root = "bg:contrast3"
 format = '[$user ]($style)'
 
 [directory]
-style = "bg:background_light"
+style = "bg:contrast2"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
@@ -54,7 +54,7 @@ truncation_symbol = "…/"
 
 [c]
 symbol = " "
-style = "bg:background_darker"
+style = "bg:contrast0"
 format = '[ $symbol ($version) ]($style)'
 
 [docker_context]
@@ -64,66 +64,66 @@ format = '[ $symbol $context ]($style) $path'
 
 [elixir]
 symbol = " "
-style = "bg:background_darker"
+style = "bg:contrast0"
 format = '[ $symbol ($version) ]($style)'
 
 [elm]
 symbol = " "
-style = "bg:background_darker"
+style = "bg:contrast0"
 format = '[ $symbol ($version) ]($style)'
 
 [git_branch]
 symbol = ""
-style = "bg:background_dark"
+style = "bg:contrast1"
 format = '[ $symbol $branch ]($style)'
 
 [git_status]
-style = "bg:background_dark"
+style = "bg:contrast1"
 format = '[($all_status$ahead_behind )]($style)'
 
 [golang]
 symbol = " "
-style = "bg:background_darker"
+style = "bg:contrast0"
 format = '[[ $symbol ($version) ]($style)'
 
 [haskell]
 symbol = " "
-style = "bg:background_darker"
+style = "bg:contrast0"
 format = '[ $symbol ($version) ]($style)'
 
 [java]
 symbol = " "
-style = "bg:background_darker"
+style = "bg:contrast0"
 format = '[ $symbol ($version) ]($style)'
 
 [julia]
 symbol = " "
-style = "bg:background_darker"
+style = "bg:contrast0"
 format = '[ $symbol ($version) ]($style)'
 
 [nodejs]
 symbol = ""
-style = "bg:background_darker"
+style = "bg:contrast0"
 format = '[ $symbol ($version) ]($style)'
 
 [nim]
 symbol = " "
-style = "bg:background_darker"
+style = "bg:contrast0"
 format = '[ $symbol ($version) ]($style)'
 
 [rust]
 symbol = ""
-style = "bg:background_darker"
+style = "bg:contrast0"
 format = '[ $symbol ($version) ]($style)'
 
 [lua]
 symbol = ""
-style = "bg:background_darker"
+style = "bg:contrast0"
 format = '[ $symbol ($version) ]($style)'
 
 [python]
 symbol = ""
-style = "bg:background_darker"
+style = "bg:contrast0"
 format = '[ $symbol ($version) ( $virtualenv )]($style)'
 
 [time]
