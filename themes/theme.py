@@ -9,3 +9,4 @@ class Theme:
     foreground: str
     wallpaper: str
     accent: str
+    alert: str
