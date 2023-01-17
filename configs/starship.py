@@ -6,7 +6,7 @@ from handlers.files import update_file, get_file_content, apply_changes
 
 def starship(theme: Theme):
     template: Path = (
-        Path.home() / "Projects/change-theme/templates/starship.toml"
+        Path.home() / "Projects/python/change-theme/templates/starship.toml"
     )
     file_path: Path = Path.home() / ".config/starship.toml"
     file_content: str = get_file_content(template)
