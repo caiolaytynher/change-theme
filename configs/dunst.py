@@ -26,11 +26,11 @@ def dunst(theme: Theme):
             ),
             (
                 r"background\s=\s.* # normal red",
-                f'background = "{theme.accent}" # normal red',
+                f'background = "{theme.alert}" # normal red',
             ),
             (
                 r"frame_color\s=\s.* # bright red",
-                f'frame_color = "{theme.accent}" # bright red',
+                f'frame_color = "{theme.alert}" # bright red',
             ),
         ],
     )
