@@ -1,0 +1,2 @@
+[tool.pyright]
+include = ['themes', 'colors', 'configs', 'templates', 'utilities', 'handlers']
