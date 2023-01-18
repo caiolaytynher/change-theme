@@ -20,4 +20,18 @@ in the plans.
 
 Add a new theme, on the other hand, is way easier, and it is what
 you'll do the most. You only need to create a new instance of the
-`Theme` class.
+`Theme` class. You need to add it to the `VALID_THEMES` constant,
+though.
+
+## How to run it
+
+You run it by executing the python file with the theme name
+afterwords, like:
+
+```{shell}
+python main.py gruvbox
+```
+
+In my system, I've created a [shell
+script](https://github.com/caiolaytynher/custom-bash-scripts)
+linked to a menu launcher to do it for me.
