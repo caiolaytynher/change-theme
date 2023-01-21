@@ -12,18 +12,12 @@ def wallpaper(theme: Theme):
         content=file_content,
         replacements=[
             (
-                r"feh\s--bg-fill\s\$HOME\/Pictures\/wallpapers\/.*",
-                f"feh --bg-fill $HOME/Pictures/wallpapers/{theme.wallpaper}",
+                r"feh\s--bg-fill\s.*",
+                f"feh --bg-fill {theme.wallpaper}",
             )
         ],
     )
 
     update_file(file_path, new_file_content)
 
-    Popen(
-        [
-            "/usr/bin/feh",
-            "--bg-fill",
-            Path.home() / f"Pictures/wallpapers/{theme.wallpaper}",
-        ]
-    )
+    Popen(["/usr/bin/feh", "--bg-fill", theme.wallpaper])
