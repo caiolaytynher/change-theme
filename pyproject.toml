@@ -1,2 +1,2 @@
 [tool.pyright]
-include = ['themes', 'configs', 'templates', 'handlers']
+include = ['themes', 'programs', 'templates', 'handlers']

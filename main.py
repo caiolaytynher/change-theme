@@ -2,14 +2,14 @@ import sys
 
 from themes import themes
 from themes.theme import Theme
-from configs.wallpaper import wallpaper
-from configs.qtile import qtile
-from configs.alacritty import alacritty
-from configs.neovim import neovim
-from configs.rofi import rofi
-from configs.starship import starship
-from configs.dmenu import dmenu
-from configs.dunst import dunst
+from programs.wallpaper import wallpaper
+from programs.qtile import qtile
+from programs.alacritty import alacritty
+from programs.neovim import neovim
+from programs.rofi import rofi
+from programs.starship import starship
+from programs.dmenu import dmenu
+from programs.dunst import dunst
 
 VALID_THEMES = {
     "gruvbox": themes.gruvbox,
@@ -33,7 +33,7 @@ def main(args: list[str]):
 
     theme: Theme = VALID_THEMES[theme_name]
 
-    configs = [
+    programs = [
         wallpaper,
         qtile,
         alacritty,
@@ -44,8 +44,8 @@ def main(args: list[str]):
         dunst,
     ]
 
-    for config in configs:
-        config(theme)
+    for program in programs:
+        program(theme)
 
 
 if __name__ == "__main__":
