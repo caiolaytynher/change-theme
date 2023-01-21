@@ -14,6 +14,11 @@ from configs.dunst import dunst
 VALID_THEMES = {
     "gruvbox": themes.gruvbox,
     "dracula": themes.dracula,
+    "catppuccin": themes.catppuccin,
+    "tokyonight": themes.tokyonight,
+    "everforest": themes.everforest,
+    "kanagawa": themes.kanagawa,
+    "onedark": themes.onedark,
 }
 
 
