@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from pathlib import Path
 
 
 @dataclass
@@ -7,6 +8,6 @@ class Theme:
     background: str
     contrast: list[str]  # higher index -> lighter color
     foreground: str
-    wallpaper: str
+    wallpaper: Path
     accent: str
     alert: str
