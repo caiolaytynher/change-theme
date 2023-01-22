@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from themes.theme import Theme
-from handlers.files import update_file, get_file_content, apply_changes
+from handlers.files import update_file, apply_changes
 
 
 def neovim(theme: Theme):
@@ -21,10 +21,9 @@ def neovim(theme: Theme):
         ),
     ]
 
-    for file_path, replacement in replacements:
-        file_content: str = get_file_content(file_path)
+    for file, replacement in replacements:
         new_file_content: str = apply_changes(
-            content=file_content, replacements=replacement
+            content=file.read_text(), replacements=replacement
         )
 
-        update_file(file_path, new_file_content)
+        update_file(file, new_file_content)

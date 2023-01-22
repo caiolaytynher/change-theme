@@ -1,14 +1,13 @@
 from pathlib import Path
 
 from themes.theme import Theme
-from handlers.files import update_file, get_file_content, apply_changes
+from handlers.files import update_file, apply_changes
 
 
 def rofi(theme: Theme):
-    file_path: Path = Path.home() / ".config/rofi/config.rasi"
-    file_content: str = get_file_content(file_path)
+    file: Path = Path.home() / ".config/rofi/config.rasi"
     new_file_content: str = apply_changes(
-        content=file_content,
+        content=file.read_text(),
         replacements=[
             (
                 r"bg:\s.*;",
@@ -33,4 +32,4 @@ def rofi(theme: Theme):
         ],
     )
 
-    update_file(file_path, new_file_content)
+    update_file(file, new_file_content)

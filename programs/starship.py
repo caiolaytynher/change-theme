@@ -1,17 +1,16 @@
 from pathlib import Path
 
 from themes.theme import Theme
-from handlers.files import update_file, get_file_content, apply_changes
+from handlers.files import update_file, apply_changes
 
 
 def starship(theme: Theme):
     template: Path = (
         Path.home() / "Projects/python/change-theme/templates/starship.toml"
     )
-    file_path: Path = Path.home() / ".config/starship.toml"
-    file_content: str = get_file_content(template)
+    file: Path = Path.home() / ".config/starship.toml"
     new_file_content: str = apply_changes(
-        content=file_content,
+        content=template.read_text(),
         replacements=[
             (
                 r"contrast0(?=[\s\)\"])",
@@ -32,4 +31,4 @@ def starship(theme: Theme):
         ],
     )
 
-    update_file(file_path, new_file_content)
+    update_file(file, new_file_content)
