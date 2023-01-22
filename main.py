@@ -10,6 +10,7 @@ from programs.rofi import rofi
 from programs.starship import starship
 from programs.dmenu import dmenu
 from programs.dunst import dunst
+from programs.change_bar import change_bar
 
 VALID_THEMES = {
     "gruvbox": themes.gruvbox,
@@ -42,6 +43,7 @@ def main(args: list[str]):
         starship,
         dmenu,
         dunst,
+        change_bar,
     ]
 
     for program in programs:
