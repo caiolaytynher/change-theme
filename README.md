@@ -10,7 +10,7 @@ Python.
 This program is based of `Theme` objects created by the user,
 whose definition is the following:
 
-```{python}
+```python
 @dataclass
 class Theme:
     name: str
@@ -45,7 +45,7 @@ texts that are similar to the old ones, otherwise the match will
 fail on multiple uses. Here's an example of an possible
 dictionary entrance:
 
-```{python}
+```python
 {
     "alacritty": {
         "file": Path.home() / ".config/alacritty/alacritty.yml",
@@ -86,7 +86,7 @@ Alacritty themes that already exist and start from there.
 Finally, add your theme to the `THEMES` dictionary, here's an
 example of an valid entrance:
 
-```{python}
+```python
 {
     "gruvbox": Theme(
         name="gruvbox",
@@ -111,7 +111,7 @@ example of an valid entrance:
 You run it by executing the python file with the theme name
 afterwords, like:
 
-```{shell}
+```shell
 python change_theme.py gruvbox
 ```
 
