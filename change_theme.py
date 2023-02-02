@@ -21,8 +21,8 @@ def main(args: list[str]):
     # indeed the right types.
     for _, params in programs.items():
         if isinstance(params, list):
-            for param in params:
-                apply_changes(**param)  # type: ignore
+            for inner_params in params:
+                apply_changes(**inner_params)  # type: ignore
         else:
             apply_changes(**params)  # type: ignore
 
