@@ -4,16 +4,6 @@ import themes
 from programs import init_programs, ProgramsType
 from update_files import apply_changes
 
-VALID_THEMES = {
-    "gruvbox": themes.gruvbox,
-    "dracula": themes.dracula,
-    "catppuccin": themes.catppuccin,
-    "tokyonight": themes.tokyonight,
-    "everforest": themes.everforest,
-    "kanagawa": themes.kanagawa,
-    "onedark": themes.onedark,
-}
-
 
 def main(args: list[str]):
     if len(args) > 1:
@@ -21,10 +11,10 @@ def main(args: list[str]):
     else:
         raise Exception("You must provide one argument.")
 
-    if theme_name not in VALID_THEMES:
+    if theme_name not in themes.THEMES:
         raise Exception("This theme does not exist.")
 
-    theme: themes.Theme = VALID_THEMES[theme_name]
+    theme: themes.Theme = themes.THEMES[theme_name]
     programs: ProgramsType = init_programs(theme)
 
     # Type ignored from this point because LSP can't tell that it is
