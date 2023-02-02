@@ -69,7 +69,9 @@ you can provide a list of all of those things mentioned above.
 When a file is hard to change and don't support the use of
 variables, you can force variables to exist through templating.
 In this case, you must provide a template entrance, which is a
-`File` object, inside the dictionary.
+`File` object, inside the dictionary. In this case, the changes
+will only be applied in the actual file, the template won't be
+touched by the program.
 
 ### Add a new theme
 
