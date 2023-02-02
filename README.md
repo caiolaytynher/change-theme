@@ -42,8 +42,8 @@ list of tuples. The first item on the tuple is the regular
 expression that match the text that will be changed and the
 second is the changed text itself. Make sure to add replacement
 texts that are similar to the old ones, otherwise the match will
-fail on multiple uses. Here's an example of an possible
-dictionary entrance:
+fail on multiple uses. Here's an example of a possible dictionary
+entrance:
 
 ```python
 {
