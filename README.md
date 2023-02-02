@@ -117,6 +117,7 @@ afterwords, like:
 python change_theme.py gruvbox
 ```
 
-In my system, I've created a [shell
+In my case, I've created a [shell
 script](https://github.com/caiolaytynher/custom-bash-scripts)
-linked to a menu launcher to do it for me.
+linked to a menu launcher to do it for me. The script mentioned
+is the `change-theme.sh`.
