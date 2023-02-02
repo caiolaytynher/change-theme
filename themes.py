@@ -54,8 +54,8 @@ THEMES: Final[dict[str, Theme]] = {
             "#4A4C60",
             "#767A91",
         ],
-        wallpaper=Path.home()
-        / "Themes/Catppuccin-wallpapers/mandelbrot/mandelbrot_full_flamingo.png",
+        wallpaper=Path.home() / "Themes/Catppuccin-wallpapers/mandelbrot/"
+        "mandelbrot_full_flamingo.png",
         foreground="#CDD6F4",
         accent="#F5C2E7",  # Pink
         alert="#F38BA8",
