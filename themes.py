@@ -1,6 +1,16 @@
 from pathlib import Path
+from dataclasses import dataclass
 
-from .theme import Theme
+
+@dataclass
+class Theme:
+    name: str
+    background: str
+    contrast: list[str]  # higher index -> lighter color
+    foreground: str
+    wallpaper: Path
+    accent: str
+    alert: str
 
 
 gruvbox = Theme(
