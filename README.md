@@ -86,7 +86,7 @@ From here, you can copy a path from a wallpaper of your choice
 and fill in the blanks. For me, I find easier to search for
 Alacritty themes that already exist and start from there.
 Finally, add your theme to the `THEMES` dictionary, here's an
-example of an valid entrance:
+example of a valid entrance:
 
 ```python
 {
