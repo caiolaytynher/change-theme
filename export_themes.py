@@ -2,11 +2,9 @@ from pathlib import Path
 from typing import Final
 from dataclasses import dataclass
 
-from themes.theme import Theme
-from themes.themes import onedark
+import themes
 
-THEME: Final[Theme] = onedark
-THEME_FILE: Final[Path] = Path.cwd() / "themes/qtile_theme.txt"
+THEME_FILE: Final[Path] = Path.cwd() / "qtile_theme.txt"
 
 
 @dataclass
@@ -18,8 +16,8 @@ class QtileTheme:
     alert: list[str]
 
 
-def convert_to_qtile(theme: Theme) -> QtileTheme:
-    contrast = []
+def convert_to_qtile(theme: themes.Theme) -> QtileTheme:
+    contrast: list[list[str]] = []
     for c in theme.contrast:
         contrast.append([c, c])
 
@@ -32,12 +30,13 @@ def convert_to_qtile(theme: Theme) -> QtileTheme:
     )
 
 
-def export(theme: Theme, filepath: Path):
+def export(theme: themes.Theme, file: Path):
     qtile_theme: QtileTheme = convert_to_qtile(theme)
-
-    with open(filepath, "w") as file:
-        file.write(str(qtile_theme))
+    file.write_text(str(qtile_theme))
 
 
 if __name__ == "__main__":
-    export(THEME, THEME_FILE)
+    export(
+        themes.THEMES["onedark"],
+        THEME_FILE,
+    )
