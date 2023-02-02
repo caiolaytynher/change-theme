@@ -1,5 +1,6 @@
 from pathlib import Path
 from dataclasses import dataclass
+from typing import Final
 
 
 @dataclass
@@ -13,7 +14,7 @@ class Theme:
     alert: str
 
 
-THEMES: dict[str, Theme] = {
+THEMES: Final[dict[str, Theme]] = {
     "gruvbox": Theme(
         name="gruvbox",
         background="#282828",
