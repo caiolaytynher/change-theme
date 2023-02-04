@@ -34,24 +34,27 @@ As it is right now, you can do two things:
 ### Add a new program
 
 To do so, you need to add your program to the `programs.py` file,
-inside of the dictionary. There, you need to provide the file
-that you're going to change and the changes that will be made.
+inside of the `ChangesToApply` objects list, which represent the
+changes made to a single file. There, you need to provide the
+file that you're going to change and the changes that will be
+made. Is also highly recommended that you add a comment with the
+name of the program which the changes refer to.
 
 The file is a `Path` object and the changes are passed in as a
 list of tuples. The first item on the tuple is the regular
 expression that match the text that will be changed and the
 second is the changed text itself. Make sure to add replacement
 texts that are similar to the old ones, otherwise the match will
-fail on multiple uses. Here's an example of a possible dictionary
-entrance:
+fail on multiple uses. Here's an example of a possible entrance:
 
 ```python
-{
-    "alacritty": {
-        "file": Path.home() / ".config/alacritty/alacritty.yml",
-        "replacements": [(r"colors:\s\*.*", f"colors: *{theme.name}")],
-    },
-}
+[
+    # Alacritty
+    ChangesToApply(
+        file=Path.home() / ".config/alacritty/alacritty.yml",
+        replacements=[(r"colors:\s\*.*", f"colors: *{theme.name}")],
+    ),
+]
 ```
 
 You can also provide one command to be executed, which is useful
@@ -60,9 +63,6 @@ command needs to be a list of the arguments, and here, `Path`
 objects are allowed. If you need to execute a internal command,
 prefer to use the full path for the program, e.g.
 `/usr/bin/echo`.
-
-If you need to change more than one file for a specific program,
-you can provide a list of all of those things mentioned above.
 
 #### Templating
 
