@@ -1,25 +1,26 @@
 from pathlib import Path
 
 from themes import Theme
-
-ParamsType = dict[str, Path | list[tuple[str, str]] | list[str | Path]]
-ProgramsType = dict[str, ParamsType | list[ParamsType]]
+from changes import ChangesToApply
 
 
-def init_programs(theme: Theme) -> ProgramsType:
-    return {
-        "alacritty": {
-            "file": Path.home() / ".config/alacritty/alacritty.yml",
-            "replacements": [(r"colors:\s\*.*", f"colors: *{theme.name}")],
-        },
-        "change_bar": {
-            "file": Path.home() / "Projects/python/change-bar/config.py",
-            "replacements": [(r"theme\=.*,", f'theme="{theme.name}",')],
-        },
-        "dmenu": {
-            "file": Path.home()
+def init_programs(theme: Theme) -> list[ChangesToApply]:
+    return [
+        # Alacritty
+        ChangesToApply(
+            file=Path.home() / ".config/alacritty/alacritty.yml",
+            replacements=[(r"colors:\s\*.*", f"colors: *{theme.name}")],
+        ),
+        # Change bar
+        ChangesToApply(
+            file=Path.home() / "Projects/python/change-bar/config.py",
+            replacements=[(r"theme\=.*,", f'theme="{theme.name}",')],
+        ),
+        # Dmenu
+        ChangesToApply(
+            file=Path.home()
             / "Projects/bash/custom-shell-scripts/custom-dmenu.sh",
-            "replacements": [
+            replacements=[
                 (
                     r"normal_background=.*",
                     f'normal_background="{theme.background}"',
@@ -37,10 +38,11 @@ def init_programs(theme: Theme) -> ProgramsType:
                     f'selected_foreground="{theme.foreground}"',
                 ),
             ],
-        },
-        "dunst": {
-            "file": Path.home() / ".config/dunst/dunstrc",
-            "replacements": [
+        ),
+        # Dunst
+        ChangesToApply(
+            file=Path.home() / ".config/dunst/dunstrc",
+            replacements=[
                 (
                     r"background\s=\s.* # primary background",
                     f'background = "{theme.background}" # primary background',
@@ -63,34 +65,32 @@ def init_programs(theme: Theme) -> ProgramsType:
                     f'frame_color = "{theme.alert}" # bright red',
                 ),
             ],
-            "command": ["/usr/bin/killall", "dunst"],
-        },
-        "neovim": [
-            {
-                "file": Path.home() / ".config/nvim/lua/caio/colorscheme.lua",
-                "replacements": [
-                    (
-                        r"local\scolorscheme\s=.*",
-                        f'local colorscheme = "{theme.name}"',
-                    )
-                ],
-            },
-            {
-                "file": Path.home() / ".config/nvim/after/plugin/lualine.lua",
-                "replacements": [
-                    (r'theme\s=\s".*"', f'theme = "{theme.name}"')
-                ],
-            },
-        ],
-        "qtile": {
-            "file": Path.home() / ".config/qtile/themes/themes.py",
-            "replacements": [
+            command=["/usr/bin/killall", "dunst"],
+        ),
+        # Neovim
+        ChangesToApply(
+            file=Path.home() / ".config/nvim/lua/caio/colorscheme.lua",
+            replacements=[
+                (
+                    r"local\scolorscheme\s=.*",
+                    f'local colorscheme = "{theme.name}"',
+                )
+            ],
+        ),
+        ChangesToApply(
+            file=Path.home() / ".config/nvim/after/plugin/lualine.lua",
+            replacements=[(r'theme\s=\s".*"', f'theme = "{theme.name}"')],
+        ),
+        # Qtile
+        ChangesToApply(
+            file=Path.home() / ".config/qtile/themes/themes.py",
+            replacements=[
                 (
                     r"theme = .*",
                     f"theme = {theme.name}",
                 )
             ],
-            "command": [
+            command=[
                 "/usr/bin/qtile",
                 "cmd-obj",
                 "-o",
@@ -98,10 +98,11 @@ def init_programs(theme: Theme) -> ProgramsType:
                 "-f",
                 "restart",
             ],
-        },
-        "rofi": {
-            "file": Path.home() / ".config/rofi/config.rasi",
-            "replacements": [
+        ),
+        # Rofi
+        ChangesToApply(
+            file=Path.home() / ".config/rofi/config.rasi",
+            replacements=[
                 (
                     r"bg:\s.*;",
                     f"bg: {theme.background};",
@@ -123,12 +124,13 @@ def init_programs(theme: Theme) -> ProgramsType:
                     f"accent: {theme.accent};",
                 ),
             ],
-        },
-        "starship": {
-            "template": Path.home()
+        ),
+        # Starship
+        ChangesToApply(
+            template=Path.home()
             / "Projects/python/change-theme/templates/starship.toml",
-            "file": Path.home() / ".config/starship.toml",
-            "replacements": [
+            file=Path.home() / ".config/starship.toml",
+            replacements=[
                 (
                     r"contrast0(?=[\s\)\"])",
                     f"{theme.contrast[0]}",
@@ -146,15 +148,16 @@ def init_programs(theme: Theme) -> ProgramsType:
                     f"{theme.contrast[3]}",
                 ),
             ],
-        },
-        "wallpaper": {
-            "file": Path.home() / ".config/qtile/scripts/autostart.sh",
-            "replacements": [
+        ),
+        # Wallpaper
+        ChangesToApply(
+            file=Path.home() / ".config/qtile/scripts/autostart.sh",
+            replacements=[
                 (
                     r"feh\s--bg-fill\s.*",
                     f"feh --bg-fill {theme.wallpaper}",
                 )
             ],
-            "command": ["/usr/bin/feh", "--bg-fill", theme.wallpaper],
-        },
-    }
+            command=["/usr/bin/feh", "--bg-fill", theme.wallpaper],
+        ),
+    ]
