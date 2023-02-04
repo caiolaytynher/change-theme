@@ -1,8 +1,8 @@
 import sys
 
 import themes
-from programs import init_programs, ProgramsType
-from update_files import apply_changes
+from programs import init_programs
+from changes import apply_changes, ChangesToApply
 
 
 def main(args: list[str]):
@@ -15,16 +15,10 @@ def main(args: list[str]):
         raise Exception("This theme does not exist.")
 
     theme: themes.Theme = themes.THEMES[theme_name]
-    programs: ProgramsType = init_programs(theme)
+    programs: list[ChangesToApply] = init_programs(theme)
 
-    # Type ignored from this point because LSP can't tell that it is
-    # indeed the right types.
-    for _, params in programs.items():
-        if isinstance(params, list):
-            for inner_params in params:
-                apply_changes(**inner_params)  # type: ignore
-        else:
-            apply_changes(**params)  # type: ignore
+    for changes in programs:
+        apply_changes(changes)
 
 
 if __name__ == "__main__":
