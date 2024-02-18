@@ -19,6 +19,7 @@ $julia\
 $nodejs\
 $nim\
 $rust\
+$nix_shell\
 [ ](fg:contrast0)\
 """
 
@@ -125,6 +126,13 @@ format = '[ $symbol ($version) ]($style)'
 symbol = ""
 style = "bg:contrast0"
 format = '[ $symbol ($version) ( $virtualenv )]($style)'
+
+[nix_shell]
+# impure_msg = '[impure shell](bold red)'
+# pure_msg = '[pure shell](bold green)'
+symbol=" "
+style = "bg:contrast0"
+format = '[ $symbol ($name) ( $state )]($style)'
 
 [time]
 disabled = false

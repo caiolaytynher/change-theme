@@ -1,2 +1,2 @@
 [tool.pyright]
-include = ['themes', 'programs', 'templates', 'update_files']
+include = ['themes', 'programs', 'templates', 'changes', 'bar_assets', 'bar_changes']
